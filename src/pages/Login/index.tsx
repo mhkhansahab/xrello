@@ -10,7 +10,6 @@ import { Box } from "@mui/system";
 import { styled, alpha } from "@mui/material/styles";
 
 const GlassContainer = styled("div")(({ theme }) => ({
-  margin: "50px",
   background: alpha(theme.palette.info.main, 0.03),
   boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
   backdropFilter: "blur(30px)",
@@ -23,7 +22,7 @@ const GlassContainer = styled("div")(({ theme }) => ({
 
 const Index: FC = () => {
   return (
-    <div style={{ backgroundColor: "red" }}>
+    <div>
       <GlassContainer></GlassContainer>
     </div>
   );

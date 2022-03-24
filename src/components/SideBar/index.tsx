@@ -7,8 +7,7 @@ import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 
 const MainDiv = styled("div")(({ theme }) => ({
   width: "230px",
-  maxWidth: "300px",
-  height: "80vh",
+  height: "98%",
   display: "flex",
   alignItems: "center",
   flexDirection: "column",

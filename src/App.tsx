@@ -15,7 +15,6 @@ const App: FC = () => {
       <Provider store={store}>
         <MuiTheme>
           <BrowserRouter>
-            {/* <NavBar /> */}
             <Router />
             <ThemeSwitch />
           </BrowserRouter>

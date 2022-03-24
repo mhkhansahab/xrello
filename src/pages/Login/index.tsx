@@ -40,8 +40,8 @@ const Index: FC = () => {
     return (        
             <GlassContainer>
                 <Box className='flex-center inner-box'>
-                    <TextField placeholder="Email" />
-                    <TextField placeholder="Password" />
+                    <TextField placeholder="Email" value={''}/>
+                    <TextField placeholder="Password" value={''} />
                     <Button variant="contained">Login</Button>
                 </Box>
             </GlassContainer>

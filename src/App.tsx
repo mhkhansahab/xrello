@@ -8,6 +8,7 @@ import MuiTheme from "./theme";
 import { styled } from "@mui/material/styles";
 import ThemeSwitch from "./components/ThemeSwitch";
 import Background from './components/Background';
+import Navbar from './components/NavBar';
 
 const App: FC = () => {
 

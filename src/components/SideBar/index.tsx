@@ -60,10 +60,7 @@ const Index: FC = () => {
     const navigate = useNavigate();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-    useEffect(() => {
-        console.log(isMobile);
-    }, [isMobile])
+    
     return (
 
         <MainDiv>

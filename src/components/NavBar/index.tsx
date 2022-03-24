@@ -22,6 +22,7 @@ const MainDiv = styled("div")(({ theme }) => ({
 
 const LinkTab = styled("div")(({ theme }) => ({
   color: theme.palette.text.primary,
+  cursor: 'pointer',
   margin: '0 20px',
   '.button': {
     borderRadius: '5px',

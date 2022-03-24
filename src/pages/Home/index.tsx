@@ -1,10 +1,14 @@
-import {FC} from 'react'
+import { FC } from 'react';
+import Navbar from './../../components/NavBar';
 
 
 const Index: FC = () => {
 
     return (
-        <div>Home</div>
+
+        <>
+            <Navbar />
+        </>
     )
 }
 

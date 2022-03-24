@@ -13,7 +13,7 @@ const MainDiv = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "space-evenly",
   margin: '10px auto',
-  background: alpha(theme.palette.info.main, 0.03),
+  background: `linear-gradient( 130deg,  ${theme?.palette?.info?.light} 11.2%, ${theme?.palette?.info?.dark} 78% )`,
   boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
   backdropFilter: "blur(30px)",
   borderRadius: "5px",
@@ -73,7 +73,8 @@ const Index: FC = () => {
       <LinkTab
         onClick={() => navigate("/")}
       >
-        <div style={{ borderRadius: '100%', height: '30px', width: '30px', backgroundColor: '#fff' }}></div>
+        <div style={{ borderRadius: '100%', height: '30px', width: '30px', backgroundColor: '#fff' ,   boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
+}}></div>
       </LinkTab>
     </MainDiv>
   );

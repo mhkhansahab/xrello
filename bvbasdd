@@ -1,0 +1,165 @@
+[33mcommit 126760ded515524b83ec44a14d1a35bae6a89b68[m[33m ([m[1;36mHEAD -> [m[1;32mdev-hamza[m[33m)[m
+Author: mhkhansahab <hamza.khansahab@gmail.com>
+Date:   Fri Mar 25 01:28:09 2022 +0500
+
+    updated
+
+[33mcommit 09c9fb3c6b1d847abd3d48188629c10f61ca200f[m[33m ([m[1;31morigin/dev-hamza[m[33m)[m
+Merge: ea85f9a 9aa933f
+Author: mhkhansahab <hamza.khansahab@gmail.com>
+Date:   Fri Mar 25 00:00:59 2022 +0500
+
+    Merge branch 'master' of https://github.com/mhkhansahab/xrello into dev-hamza
+
+[33mcommit ea85f9aa46c0dd56cb251cadcc45d2b99544da59[m
+Author: mhkhansahab <hamza.khansahab@gmail.com>
+Date:   Fri Mar 25 00:00:48 2022 +0500
+
+    updated board
+
+[33mcommit 9aa933f435a72e209fb4489fe3bf19d1b93dca15[m
+Merge: 3af3996 a08cfac
+Author: Muhammad Hamza Khan <50259125+mhkhansahab@users.noreply.github.com>
+Date:   Thu Mar 24 22:45:21 2022 +0500
+
+    Merge pull request #8 from mhkhansahab/dev-hamza
+    
+    sidebar added
+
+[33mcommit a08cfac6a08038bb2a9fade816a29bc4bd6c4a3d[m
+Author: mhkhansahab <hamza.khansahab@gmail.com>
+Date:   Thu Mar 24 22:44:36 2022 +0500
+
+    sidebar added
+
+[33mcommit 3af3996e707e5908ce8c67128e86a2f522ed4fed[m
+Merge: bccdc1b 3ebdaaf
+Author: Muhammad Hamza Khan <50259125+mhkhansahab@users.noreply.github.com>
+Date:   Thu Mar 24 22:10:40 2022 +0500
+
+    Merge pull request #7 from mhkhansahab/dev-hamza
+    
+    Dev hamza
+
+[33mcommit 3ebdaaf4ab93d98e9b8249c3ea2db7c553d6cb3b[m
+Merge: 0b0c88f bccdc1b
+Author: mhkhansahab <hamza.khansahab@gmail.com>
+Date:   Thu Mar 24 22:10:12 2022 +0500
+
+    navbar updated
+
+[33mcommit 0b0c88fbfd8b439bb33c3cdc49719fad67440f06[m
+Author: mhkhansahab <hamza.khansahab@gmail.com>
+Date:   Thu Mar 24 21:00:16 2022 +0500
+
+    navbar created
+
+[33mcommit bccdc1b3f69d8f63c84a7747e9fea16b915d834b[m
+Merge: a02a388 37838c1
+Author: Ijlal Ishaq <60582132+Ijlal-Ishaq@users.noreply.github.com>
+Date:   Thu Mar 24 20:20:33 2022 +0500
+
+    Merge pull request #6 from mhkhansahab/dev-ijlal
+    
+    login/signup page
+
+[33mcommit 37838c1a639a93475cd3c8d89ccb4ebe6340a568[m
+Author: ijlal-ishaq <ijlalishaq2019@gmail.com>
+Date:   Thu Mar 24 20:19:59 2022 +0500
+
+    login/signup page
+
+[33mcommit a02a388583671c727838802aef9e43301715046e[m
+Merge: 7d167a4 630420a
+Author: Muhammad Hamza Khan <50259125+mhkhansahab@users.noreply.github.com>
+Date:   Thu Mar 24 18:11:34 2022 +0500
+
+    Merge pull request #5 from mhkhansahab/dev-hamza
+    
+    Dev hamza
+
+[33mcommit 630420a6d93abc6f0e23fcb6c4d83a8601b3cc91[m
+Merge: 542b1fe 7d167a4
+Author: mhkhansahab <hamza.khansahab@gmail.com>
+Date:   Thu Mar 24 18:10:53 2022 +0500
+
+    update
+
+[33mcommit 542b1fe9db7515f602d787142a8e538de23e354e[m
+Author: mhkhansahab <hamza.khansahab@gmail.com>
+Date:   Thu Mar 24 18:09:50 2022 +0500
+
+    update
+
+[33mcommit 7d167a42dd3c6d499e8d01dfc120be1ff5d188e6[m
+Merge: 5bed42e 910a172
+Author: Ijlal Ishaq <60582132+Ijlal-Ishaq@users.noreply.github.com>
+Date:   Thu Mar 24 18:02:56 2022 +0500
+
+    Merge pull request #4 from mhkhansahab/dev-ijlal
+    
+    theme switch
+
+[33mcommit 910a1725fd6b638ab412f1ded8f1c2c531e7036d[m
+Author: ijlal-ishaq <ijlalishaq2019@gmail.com>
+Date:   Thu Mar 24 18:01:34 2022 +0500
+
+    theme switch
+
+[33mcommit 5bed42e894eb45d3bee4f42fec697c53f6e0c6a6[m
+Merge: f1882e5 ffebd07
+Author: Muhammad Hamza Khan <50259125+mhkhansahab@users.noreply.github.com>
+Date:   Thu Mar 24 17:44:46 2022 +0500
+
+    Merge pull request #3 from mhkhansahab/dev-ijlal
+    
+    Dev ijlal
+
+[33mcommit ffebd07e8bb263b5b75c3176aaf212007b77b14e[m[33m ([m[1;31morigin/dev-ijlal[m[33m)[m
+Merge: 5bf3386 f1882e5
+Author: ijlal-ishaq <ijlalishaq2019@gmail.com>
+Date:   Thu Mar 24 17:41:05 2022 +0500
+
+    merged master
+
+[33mcommit 5bf3386ead14f1e7892968a9f14c575d87fc5746[m
+Author: ijlal-ishaq <ijlalishaq2019@gmail.com>
+Date:   Thu Mar 24 17:38:29 2022 +0500
+
+    glass container
+
+[33mcommit f1882e5920a3eb677686f3e8465490bbbc65f46a[m
+Merge: 66f99c9 3f21f7b
+Author: Muhammad Hamza Khan <50259125+mhkhansahab@users.noreply.github.com>
+Date:   Thu Mar 24 17:38:13 2022 +0500
+
+    Merge pull request #2 from mhkhansahab/dev-hamza
+    
+    update
+
+[33mcommit 3f21f7b7f6b0ad386bbd4222cb09123903f1e549[m
+Author: mhkhansahab <hamza.khansahab@gmail.com>
+Date:   Thu Mar 24 17:37:39 2022 +0500
+
+    update
+
+[33mcommit 66f99c9ed2bd9a0d69d75dcea9965d27081a5e2c[m
+Merge: df06fb9 f704ae2
+Author: Muhammad Hamza Khan <50259125+mhkhansahab@users.noreply.github.com>
+Date:   Thu Mar 24 17:20:03 2022 +0500
+
+    Merge pull request #1 from mhkhansahab/dev-hamza
+    
+    update
+
+[33mcommit f704ae2b9621e3989e7d7b78a6308dbb7fa461c9[m
+Author: mhkhansahab <hamza.khansahab@gmail.com>
+Date:   Thu Mar 24 17:19:26 2022 +0500
+
+    update
+
+[33mcommit df06fb977f72ea54b84544f1988b4168721cd954[m[33m ([m[1;32mmaster[m[33m)[m
+Author: mhkhansahab <hamza.khansahab@gmail.com>
+Date:   Thu Mar 24 16:57:33 2022 +0500
+
+    updated

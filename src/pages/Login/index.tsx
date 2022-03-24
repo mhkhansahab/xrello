@@ -1,6 +1,8 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { baseUrl } from "../../utils/constants";
 
 const GlassContainer = styled("div")(({ theme }) => ({
   background: alpha(theme.palette.info.main, 0.03),
@@ -57,16 +59,89 @@ const CustomMsg = styled("div")(({ theme }) => ({
   cursor: "pointer",
 }));
 
+const ErrorMsg = styled("div")(({ theme }) => ({
+  fontSize: "13px",
+  maxWidth: "250px",
+  textAlign: "center",
+  marginLeft: "auto",
+  marginRight: "auto",
+  marginTop: "9px",
+  border: "none",
+  borderRadius: "5px",
+  color: "#fff",
+  cursor: "pointer",
+}));
+
 const Index: FC = () => {
   const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const login = async () => {
+    if (email == "" || password == "") {
+      setErrorMsg("Enter all information.");
+      return;
+    } else {
+    }
+
+    let bodyFormData = {
+      email,
+      password,
+    };
+
+    axios({
+      method: "post",
+      url: baseUrl + "auth/login/",
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((res) => {
+        console.log(res);
+        if (res?.data?.status == "failed") {
+          setErrorMsg(res?.data?.msg);
+        } else {
+          console.log(res);
+        }
+      })
+      .catch(async (error) => {
+        if (error?.response?.data?.status == "failed") {
+          setErrorMsg(error?.response?.data?.msg);
+        } else {
+          console.log(error);
+        }
+      });
+  };
+
   return (
     <GlassContainer>
       <Heading>Login</Heading>
-      <CustomInput placeholder="Enter Email" type={"email"} />
+      <CustomInput
+        placeholder="Enter Email"
+        type={"email"}
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}
+      />
       <br />
-      <CustomInput placeholder="Enter Password" type={"password"} />
+      <CustomInput
+        placeholder="Enter Password"
+        type={"password"}
+        onChange={(e) => {
+          setPassword(e.target.value);
+        }}
+      />
       <br />
-      <CustomButton>Login</CustomButton>
+
+      {errorMsg != "" ? <ErrorMsg>{errorMsg}</ErrorMsg> : null}
+
+      <CustomButton
+        onClick={() => {
+          login();
+        }}
+      >
+        Login
+      </CustomButton>
       <CustomMsg
         onClick={() => {
           navigate("/signup");

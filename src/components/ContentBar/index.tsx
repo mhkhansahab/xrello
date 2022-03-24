@@ -56,7 +56,8 @@ const MainDiv = styled("div")(({ theme }) => ({
         maxHeight: '300px',
     },
     '.scroller::-webkit-scrollbar': {
-        height: '12px'
+        height: '12px',
+        width: '5px'
     },
     '.scroller::-webkit-scrollbar-thumb': {
         borderRadius: '10px',

@@ -3,191 +3,220 @@ import { styled, alpha } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import AddIcon from '@mui/icons-material/Add';
 
 const MainDiv = styled("div")(({ theme }) => ({
-  flexGrow: 1,
-  height: "80vh",
-  display: "flex",
-  alignItems: "center",
-  margin: "10px",
-  ".columns": {
-    background: alpha(theme.palette.info.main, 0.03),
-    boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
-    backdropFilter: "blur(30px)",
-    width: "250px",
-    padding: "10px 0",
-  },
+    width: "74%",
+    maxWidth: '1000px',
+    height: "80vh",
+    display: "flex",
+    alignItems: "center",
+    margin: '0 10px',
+    '.columns': {
+        background: alpha(theme.palette.info.main, 0.03),
+        boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
+        backdropFilter: "blur(30px)",
+        width: '250px',
+        padding: '16px 14px',
+        display: "flex",
+        alignItems: "center",
+        justifyContent: 'space-between'
+    },
+    '.add-icon': {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: 'center',
+        cursor: 'pointer'
+    },
+    '.tile': {
+        userSelect: "none",
+        padding: 16,
+        margin: "0 0 8px 0",
+        minHeight: "50px",
+        background: alpha(theme.palette.info.main, 0.03),
+        boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
+        backdropFilter: "blur(30px)",
+        color: '#fff',
+        display: "flex",
+        alignItems: "center",
+        justifyContent: 'space-between'
+    },
+    '.avatar': {
+        borderRadius: '100%',
+        height: '30px',
+        width: '30px',
+        backgroundColor: '#fff',
+        boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
+
+    },
+    '.content': {
+        textAlign: 'left',
+        maxWidth: '160px',
+        wordBreak: 'break-all',
+        maxHeight: '300px',
+    },
+    '.scroller::-webkit-scrollbar': {
+        height: '12px',
+        width: '5px'
+    },
+    '.scroller::-webkit-scrollbar-thumb': {
+        borderRadius: '10px',
+        backgroundColor: alpha(theme.palette.info.main, 0.2),
+        outline: 'none',
+        boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
+        backdropFilter: "blur(30px)",
+    }
+
 }));
 
 const itemsFromBackend = [
-  { id: "0", content: "First task" },
-  { id: "1", content: "Second task" },
-  { id: "2", content: "Third task" },
-  { id: "3", content: "Fourth task" },
-  { id: "4", content: "Fifth task" },
-  { id: "0", content: "First task" },
-  { id: "1", content: "Second task" },
-  { id: "2", content: "Third task" },
-  { id: "3", content: "Fourth task" },
-  { id: "4", content: "Fifth task" },
-  { id: "0", content: "First task" },
-  { id: "1", content: "Second task" },
-  { id: "2", content: "Third task" },
-  { id: "3", content: "Fourth task" },
-  { id: "4", content: "Fifth task" },
+    { id: '1', content: "Second taskas asas" },
+    { id: '2', content: "Third task" },
+    { id: '3', content: "Fourth task" },
+    { id: '4', content: "Fifth task" },
+    { id: '5', content: "First taskasdasdasdasdasdasd asdasdasd asdasdasd asdasdasd asdasd asdasd asdasd asdasdsa asdsad" },
+    { id: '6', content: "Second taskas asas" },
+    { id: '7', content: "Third task" },
+    { id: '8', content: "Fourth task" }, { id: '0', content: "First taskasdasdasdasdasdasd asdasdasd asdasdasd asdasdasd asdasd asdasd asdasd asdasdsa asdsad" },
+    { id: '9', content: "Second taskas asas" },
+    { id: '10', content: "Third task" },
+    { id: '11', content: "Fourth task" },
 ];
 
 const columnsFromBackend = {
-  "0": {
-    name: "Requested",
-    items: itemsFromBackend,
-  },
-  "1": {
-    name: "To do",
-    items: [],
-  },
-  "2": {
-    name: "In Progress",
-    items: [],
-  },
-  "3": {
-    name: "Done",
-    items: [],
-  },
+    '0': {
+        name: "Requested",
+        items: itemsFromBackend
+    },
+    '1': {
+        name: "To do",
+        items: []
+    },
+    '2': {
+        name: "In Progress",
+        items: []
+    },
+    '3': {
+        name: "Done",
+        items: []
+    }
 };
 
 const onDragEnd = (result: any, columns: any, setColumns: any) => {
-  if (!result.destination) return;
-  const { source, destination } = result;
+    if (!result.destination) return;
+    const { source, destination } = result;
 
-  if (source.droppableId !== destination.droppableId) {
-    const sourceColumn = columns[source.droppableId];
-    const destColumn = columns[destination.droppableId];
-    const sourceItems = [...sourceColumn.items];
-    const destItems = [...destColumn.items];
-    const [removed] = sourceItems.splice(source.index, 1);
-    destItems.splice(destination.index, 0, removed);
-    setColumns({
-      ...columns,
-      [source.droppableId]: {
-        ...sourceColumn,
-        items: sourceItems,
-      },
-      [destination.droppableId]: {
-        ...destColumn,
-        items: destItems,
-      },
-    });
-  } else {
-    const column = columns[source.droppableId];
-    const copiedItems = [...column.items];
-    const [removed] = copiedItems.splice(source.index, 1);
-    copiedItems.splice(destination.index, 0, removed);
-    setColumns({
-      ...columns,
-      [source.droppableId]: {
-        ...column,
-        items: copiedItems,
-      },
-    });
-  }
+    if (source.droppableId !== destination.droppableId) {
+        const sourceColumn = columns[source.droppableId];
+        const destColumn = columns[destination.droppableId];
+        const sourceItems = [...sourceColumn.items];
+        const destItems = [...destColumn.items];
+        const [removed] = sourceItems.splice(source.index, 1);
+        destItems.splice(destination.index, 0, removed);
+        setColumns({
+            ...columns,
+            [source.droppableId]: {
+                ...sourceColumn,
+                items: sourceItems
+            },
+            [destination.droppableId]: {
+                ...destColumn,
+                items: destItems
+            }
+        });
+    } else {
+        const column = columns[source.droppableId];
+        const copiedItems = [...column.items];
+        const [removed] = copiedItems.splice(source.index, 1);
+        copiedItems.splice(destination.index, 0, removed);
+        setColumns({
+            ...columns,
+            [source.droppableId]: {
+                ...column,
+                items: copiedItems
+            }
+        });
+    }
 };
 
 const Index: FC = () => {
-  const [columns, setColumns] = useState(columnsFromBackend);
+    const [columns, setColumns] = useState(columnsFromBackend);
 
-  return (
-    <MainDiv>
-      <DragDropContext
-        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
-      >
-        {Object.entries(columns).map(([columnId, column], index) => {
-          return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "start",
-                height: "100%",
-              }}
-              key={columnId}
+    return (
+        <MainDiv>
+            <DragDropContext
+                onDragEnd={result => onDragEnd(result, columns, setColumns)}
             >
-              <h2
-                className="columns"
-                style={{ marginTop: "0px", borderRadius: "5px" }}
-              >
-                {column.name}
-              </h2>
-              <div
-                style={{
-                  margin: 8,
-                  marginTop: 0,
-                  flexGrow: 1,
-                  backgroundColor: "red",
-                }}
-              >
-                <Droppable droppableId={columnId} key={columnId}>
-                  {(provided, snapshot) => {
+                {Object.entries(columns).map(([columnId, column], index) => {
                     return (
-                      <div
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        style={{
-                          background: snapshot.isDraggingOver
-                            ? "lightblue"
-                            : "lightgrey",
-                          padding: 4,
-                          height: "100%",
-                          maxHeight: "100%",
-                          overflow: "scroll",
-                          width: 250,
-                        }}
-                      >
-                        {column.items.map((item, index) => {
-                          return (
-                            <Draggable
-                              key={item.id}
-                              draggableId={item.id}
-                              index={index}
-                            >
-                              {(provided, snapshot) => {
-                                return (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    style={{
-                                      userSelect: "none",
-                                      padding: 16,
-                                      margin: "0 0 8px 0",
-                                      minHeight: "50px",
-                                      backgroundColor: snapshot.isDragging
-                                        ? "#263B4A"
-                                        : "#456C86",
-                                      color: "white",
-                                      ...provided.draggableProps.style,
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: 'start'
+                            }}
+                            key={columnId}
+                        >
+                            <div className="columns">
+                                <div>{column.name}</div>
+                                <div className="add-icon"><AddIcon /></div>
+                            </div>
+                            <div style={{ margin: 8 }}>
+                                <Droppable droppableId={columnId} key={columnId} >
+                                    {(provided, snapshot) => {
+                                        return (
+                                            <div
+                                                {...provided.droppableProps}
+                                                ref={provided.innerRef}
+                                                className='scroller'
+                                                style={{
+                                                    padding: 4,
+                                                    width: 250,
+                                                    minHeight: 500,
+                                                    maxHeight: 500,
+                                                    overflowY: 'auto'
+                                                }}
+                                            >
+                                                {column.items.map((item, index) => {
+                                                    return (
+                                                        <Draggable
+                                                            key={item.id}
+                                                            draggableId={item.id}
+                                                            index={index}
+                                                        >
+                                                            {(provided, snapshot) => {
+                                                                return (
+                                                                    <div
+                                                                        ref={provided.innerRef}
+                                                                        {...provided.draggableProps}
+                                                                        {...provided.dragHandleProps}
+                                                                        className='tile'
+                                                                        style={{
+
+                                                                            ...provided.draggableProps.style
+                                                                        }}
+                                                                    >
+                                                                        <div className="content">{item.content.length >= 65 ? item.content.substring(0, 65).concat('...') : item.content}</div>
+                                                                        <div className="avatar"></div>
+                                                                    </div>
+                                                                );
+                                                            }}
+                                                        </Draggable>
+                                                    );
+                                                })}
+                                                {provided.placeholder}
+                                            </div>
+                                        );
                                     }}
-                                  >
-                                    {item.content}
-                                  </div>
-                                );
-                              }}
-                            </Draggable>
-                          );
-                        })}
-                        {provided.placeholder}
-                      </div>
+                                </Droppable>
+                            </div>
+                        </div>
                     );
-                  }}
-                </Droppable>
-              </div>
-            </div>
-          );
-        })}
-      </DragDropContext>
-    </MainDiv>
-  );
+                })}
+            </DragDropContext>
+        </MainDiv>
+    );
 };
 
 export default Index;

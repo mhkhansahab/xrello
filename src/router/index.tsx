@@ -5,14 +5,34 @@ import Home from "../pages/Home";
 import PageNotFound from "../pages/PageNotFound";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
+import { useSelector } from "react-redux";
 
 const Index: FC = () => {
+
+  //@ts-ignore
+  const isLogged: any = useSelector(state => state?.userReducer?.token);
+
+    
+  // const checkLogin = () => {
+  //   if (isLogged) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
   return useRoutes([
     {
       path: "/",
-      children: [
+      children: isLogged ?  [
         {
           path: "",
+          element: <Navigate to={"/dashboard"} />,
+        },
+        {
+          path: "login",
+          element: <Navigate to={"/dashboard"} />,
+        },{
+          path: "signup",
           element: <Navigate to={"/dashboard"} />,
         },
         {
@@ -24,6 +44,16 @@ const Index: FC = () => {
           element: <Home />,
         },
         {
+          path: "*",
+          element: <PageNotFound />,
+        },
+      ] : [
+        {
+          path: "",
+          element: <Navigate to={"/login"} />,
+        },
+
+        {
           path: "login",
           element: <Login />,
         },
@@ -33,11 +63,12 @@ const Index: FC = () => {
         },
         {
           path: "*",
-          element: <PageNotFound />,
+          element: <Login />,
         },
-      ],
+      ]
     },
-  ]);
+  ]
+      );
 };
 
 export default Index;

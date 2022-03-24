@@ -16,12 +16,11 @@ const App: FC = () => {
     <div className="App">
       <Provider store={store}>
         <MuiTheme>
-          <Background>
-            <BrowserRouter>
-              <Router />
-              <ThemeSwitch />
-            </BrowserRouter>
-          </Background>
+          <Background />
+          <BrowserRouter>
+            <Router />
+            <ThemeSwitch />
+          </BrowserRouter>
         </MuiTheme>
       </Provider>
     </div>

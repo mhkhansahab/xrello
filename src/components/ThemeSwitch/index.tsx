@@ -16,6 +16,7 @@ const Index: FC = () => {
         color: theme.palette.background.default,
       }}
       onClick={() => {
+        console.log('asdasd')
         switchTheme();
       }}
     >

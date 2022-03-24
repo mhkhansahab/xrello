@@ -6,18 +6,22 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import MuiTheme from "./theme";
 import { styled } from "@mui/material/styles";
-import NavBar from "./components/NavBar";
 import ThemeSwitch from "./components/ThemeSwitch";
+import Background from './components/Background';
 
 const App: FC = () => {
+
+
   return (
     <div className="App">
       <Provider store={store}>
         <MuiTheme>
-          <BrowserRouter>
-            <Router />
-            <ThemeSwitch />
-          </BrowserRouter>
+          <Background>
+            <BrowserRouter>
+              <Router />
+              <ThemeSwitch />
+            </BrowserRouter>
+          </Background>
         </MuiTheme>
       </Provider>
     </div>

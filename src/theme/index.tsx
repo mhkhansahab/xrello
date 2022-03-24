@@ -45,6 +45,7 @@ const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
             main: "#000",
             light: "#f6383a",
             dark: "#eac074",
+            contrastText: "#fff",
           },
           background: {
             default: "#fff",
@@ -64,6 +65,7 @@ const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
             main: "#fff",
             light: "#1b2564",
             dark: "#922f5b",
+            contrastText: "#000",
           },
           background: {
             default: "#000",

@@ -3,6 +3,8 @@ import { styled, alpha } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../utils/constants";
+import { addUser } from "../../redux/actions/userActions";
+import { useDispatch } from "react-redux";
 
 const GlassContainer = styled("div")(({ theme }) => ({
   background: alpha(theme.palette.info.main, 0.03),
@@ -77,6 +79,7 @@ const Index: FC = () => {
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const dispatch = useDispatch();
 
   const login = async () => {
     if (email == "" || password == "") {
@@ -94,14 +97,25 @@ const Index: FC = () => {
       method: "post",
       url: baseUrl + "auth/login/",
       data: bodyFormData,
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
-        console.log(res);
         if (res?.data?.status == "failed") {
           setErrorMsg(res?.data?.msg);
         } else {
-          console.log(res);
+          const token = res?.data?.token;
+          const id = res?.data?.data?._id;
+          const username = res?.data?.data?.username;
+          const email = res?.data?.data?.email;
+  
+          const obj = {
+            token,
+            id,
+            username,
+            email
+          }
+  
+          dispatch(addUser(obj));
         }
       })
       .catch(async (error) => {

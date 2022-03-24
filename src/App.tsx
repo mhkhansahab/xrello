@@ -12,7 +12,6 @@ import Navbar from './components/NavBar';
 
 const App: FC = () => {
 
-
   return (
     <div className="App">
       <Provider store={store}>

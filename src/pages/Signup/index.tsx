@@ -3,6 +3,8 @@ import { styled, alpha } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../utils/constants";
+import { addUser } from "../../redux/actions/userActions";
+import { useDispatch } from "react-redux";
 
 const GlassContainer = styled("div")(({ theme }) => ({
   background: alpha(theme.palette.info.main, 0.03),
@@ -80,10 +82,12 @@ const Index: FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [profilePic, setProfilePic] = useState<any>(null);
+  const [profilePic, setProfilePic] = useState<string>("");
+  const dispatch = useDispatch();
 
-  const signup = async () => {
-    if (name == "" || email == "" || password == "" || profilePic == null) {
+
+  const signup = () => {
+    if (name == "" || email == "" || password == "") {
       setErrorMsg("Enter all information.");
       return;
     }
@@ -93,17 +97,40 @@ const Index: FC = () => {
       email,
       password,
       confirmpassword: password,
-      img: profilePic,
     };
 
-    let response = await axios({
+    axios({
       method: "post",
       url: baseUrl + "auth/signup",
-      data: bodyFormData,
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+      data: { ...bodyFormData },
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => {
+      if (res?.data?.status == "failed") {
+        setErrorMsg(res?.data?.msg);
+      } else {
+        const token = res?.data?.token;
+        const id = res?.data?.data?._id;
+        const username = name;
 
-    console.log(response);
+        const obj = {
+          token,
+          id,
+          username,
+          email
+        }
+
+        dispatch(addUser(obj));
+      }
+    })
+      .catch(async (error) => {
+        if (error?.response?.data?.status == "failed") {
+          setErrorMsg(error?.response?.data?.msg);
+        } else {
+          console.log(error);
+        }
+      });
+
+
   };
 
   return (

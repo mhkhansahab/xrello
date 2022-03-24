@@ -47,9 +47,9 @@ const MainDiv = styled("div")(({ theme }) => ({
         width: '30px',
         backgroundColor: '#fff',
         boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
-        
+
     },
-    '.content':{
+    '.content': {
         textAlign: 'left',
         maxWidth: '160px',
         wordBreak: 'break-all',
@@ -61,7 +61,7 @@ const MainDiv = styled("div")(({ theme }) => ({
     },
     '.scroller::-webkit-scrollbar-thumb': {
         borderRadius: '10px',
-        backgroundColor: alpha(theme.palette.info.main,0.2),
+        backgroundColor: alpha(theme.palette.info.main, 0.2),
         outline: 'none',
         boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
         backdropFilter: "blur(30px)",
@@ -70,18 +70,17 @@ const MainDiv = styled("div")(({ theme }) => ({
 }));
 
 const itemsFromBackend = [
-    { id: '0', content: "First taskasdasdasdasdasdasd asdasdasd asdasdasd asdasdasd asdasd asdasd asdasd asdasdsa asdsad" },
     { id: '1', content: "Second taskas asas" },
     { id: '2', content: "Third task" },
     { id: '3', content: "Fourth task" },
     { id: '4', content: "Fifth task" },
-    { id: '0', content: "First taskasdasdasdasdasdasd asdasdasd asdasdasd asdasdasd asdasd asdasd asdasd asdasdsa asdsad" },
-    { id: '1', content: "Second taskas asas" },
-    { id: '2', content: "Third task" },
-    { id: '3', content: "Fourth task" },{ id: '0', content: "First taskasdasdasdasdasdasd asdasdasd asdasdasd asdasdasd asdasd asdasd asdasd asdasdsa asdsad" },
-    { id: '1', content: "Second taskas asas" },
-    { id: '2', content: "Third task" },
-    { id: '3', content: "Fourth task" },
+    { id: '5', content: "First taskasdasdasdasdasdasd asdasdasd asdasdasd asdasdasd asdasd asdasd asdasd asdasdsa asdsad" },
+    { id: '6', content: "Second taskas asas" },
+    { id: '7', content: "Third task" },
+    { id: '8', content: "Fourth task" }, { id: '0', content: "First taskasdasdasdasdasdasd asdasdasd asdasdasd asdasdasd asdasd asdasd asdasd asdasdsa asdsad" },
+    { id: '9', content: "Second taskas asas" },
+    { id: '10', content: "Third task" },
+    { id: '11', content: "Fourth task" },
 ];
 
 const columnsFromBackend = {
@@ -198,7 +197,7 @@ const Index: FC = () => {
                                                                             ...provided.draggableProps.style
                                                                         }}
                                                                     >
-                                                                        <div className="content">{item.content.length >= 65 ? item.content.substring(0, 65).concat('...'): item.content}</div>
+                                                                        <div className="content">{item.content.length >= 65 ? item.content.substring(0, 65).concat('...') : item.content}</div>
                                                                         <div className="avatar"></div>
                                                                     </div>
                                                                 );

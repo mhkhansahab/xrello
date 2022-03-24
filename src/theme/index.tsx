@@ -37,43 +37,43 @@ const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
     mode,
     ...(mode === "light"
       ? {
-        // palette values for light mode
-        primary: {
-          main: "#fff",
-        },
-        info: {
-          main:'#fff',
-          light: '#f6383a',
-          dark: '#eac074'
-        },
-        background: {
-          default: "#fff",
-          paper: "#fff",
-        },
-        text: {
-          primary: "#fff",
-          secondary: "#fff",
-        },
-      }
+          // palette values for light mode
+          primary: {
+            main: "#fff",
+          },
+          info: {
+            main: "#000",
+            light: "#f6383a",
+            dark: "#eac074",
+          },
+          background: {
+            default: "#fff",
+            paper: "#fff",
+          },
+          text: {
+            primary: "#fff",
+            secondary: "#fff",
+          },
+        }
       : {
-        // palette values for dark mode
-        primary: {
-          main: "#fff",
-        },
-        info: {
-          main:'#fff',
-          light: '#1b2564',
-          dark: '#922f5b'
-        },
-        background: {
-          default: "#000",
-          paper: "#fff",
-        },
-        text: {
-          primary: "#fff",
-          secondary: "#fff",
-        },
-      }),
+          // palette values for dark mode
+          primary: {
+            main: "#fff",
+          },
+          info: {
+            main: "#fff",
+            light: "#1b2564",
+            dark: "#922f5b",
+          },
+          background: {
+            default: "#000",
+            paper: "#fff",
+          },
+          text: {
+            primary: "#fff",
+            secondary: "#fff",
+          },
+        }),
   },
 });
 

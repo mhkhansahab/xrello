@@ -1,35 +1,32 @@
-import { FC } from 'react';
+import { FC } from "react";
 import {
-    Grid,
-    Checkbox,
-    FormGroup,
-    FormControlLabel,
-    TextField
-} from '@mui/material';
-import { Box } from '@mui/system';
+  Grid,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+  TextField,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import { styled, alpha } from "@mui/material/styles";
 
+const GlassContainer = styled("div")(({ theme }) => ({
+  margin: "50px",
+  background: alpha(theme.palette.info.main, 0.03),
+  boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
+  backdropFilter: "blur(30px)",
+  borderRadius: "5px",
+  width: "700px",
+  height: "500px",
+
+  [theme.breakpoints.down("sm")]: {},
+}));
 
 const Index: FC = () => {
+  return (
+    <div style={{ backgroundColor: "red" }}>
+      <GlassContainer></GlassContainer>
+    </div>
+  );
+};
 
-    return (
-        <Grid className='pt-4 grid-container'>
-            <FormGroup>
-                <Box className='rounded-md bg-custom-light dark:bg-header-black w-full field-box'>
-                    <div className='pl-2  flex items-center'>
-                        <FormControlLabel
-                            classes={{ label: 'field-label' }}
-                            onChange={() => { }
-                            }
-                            control={
-                                <TextField></TextField>
-                            }
-                            label={''}
-                        />
-                    </div>
-                </Box>
-            </FormGroup>
-        </Grid >
-    )
-}
-
-export default Index
+export default Index;

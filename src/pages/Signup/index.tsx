@@ -1,6 +1,8 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { baseUrl } from "../../utils/constants";
 
 const GlassContainer = styled("div")(({ theme }) => ({
   background: alpha(theme.palette.info.main, 0.03),
@@ -74,22 +76,83 @@ const CustomMsg = styled("div")(({ theme }) => ({
 
 const Index: FC = () => {
   const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [profilePic, setProfilePic] = useState<any>(null);
+
+  const signup = async () => {
+    if (name == "" || email == "" || password == "" || profilePic == null) {
+      setErrorMsg("Enter all information.");
+      return;
+    }
+
+    let bodyFormData = {
+      username: name,
+      email,
+      password,
+      confirmpassword: password,
+      img: profilePic,
+    };
+
+    let response = await axios({
+      method: "post",
+      url: baseUrl + "auth/signup",
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    console.log(response);
+  };
+
   return (
     <GlassContainer>
       <Heading>SignUp</Heading>
-      <CustomInput placeholder="Enter Name" type={"name"} />
+      <CustomInput
+        placeholder="Enter Name"
+        type={"name"}
+        onChange={(e) => {
+          setName(e.target.value);
+        }}
+      />
       <br />
-      <CustomInput placeholder="Enter Email" type={"email"} />
+      <CustomInput
+        placeholder="Enter Email"
+        type={"email"}
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}
+      />
       <br />
-      <CustomInput placeholder="Enter Password" type={"password"} />
+      <CustomInput
+        placeholder="Enter Password"
+        type={"password"}
+        onChange={(e) => {
+          setPassword(e.target.value);
+        }}
+      />
       <br />
       <div style={{ width: "100%", height: "10px" }}></div>
       <CustomLabelFile htmlFor={"file"}>
         Select profile picture &nbsp;&nbsp;&nbsp;
       </CustomLabelFile>
-      <CustomInput placeholder="Select File" type={"file"} id={"file"} />
+      <CustomInput
+        placeholder="Select File"
+        type={"file"}
+        id={"file"}
+        onChange={(e) => {
+          setProfilePic(e.target.value);
+        }}
+      />
       <div style={{ width: "100%", height: "10px" }}></div>
-      <CustomButton>Signup</CustomButton>
+      <CustomButton
+        onClick={() => {
+          signup();
+        }}
+      >
+        Signup
+      </CustomButton>
       <CustomMsg
         onClick={() => {
           navigate("/login");

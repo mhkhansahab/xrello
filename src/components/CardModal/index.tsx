@@ -58,7 +58,7 @@ const Index: FC = () => {
             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}
         >
             <Wrapper>
-
+                {theme.palette.primary.light}
                 <div className='box-container' style={{ width: '500px', height: '600px', background: `${theme.palette.primary.light}`, color: '#000', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                     <CustomInput
                         placeholder="Title"

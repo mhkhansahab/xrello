@@ -182,7 +182,8 @@ const Index: FC = () => {
                         style={{
                           padding: 4,
                           width: 250,
-                          height: "450px",
+                          minHeight: "250px",
+                          maxHeight: 'calc(100vh - 180px)',
                           overflowY: "auto",
                         }}
                       >

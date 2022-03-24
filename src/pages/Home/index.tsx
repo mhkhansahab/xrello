@@ -3,6 +3,7 @@ import Navbar from './../../components/NavBar';
 import SideBar from './../../components/SideBar';
 import { styled, alpha } from "@mui/material/styles";
 import ContentBar from './../../components/ContentBar';
+import CardModal from './../../components/CardModal';
 
 const MainDiv = styled("div")(({ theme }) => ({
     width: "100%",
@@ -23,8 +24,10 @@ const MainDiv = styled("div")(({ theme }) => ({
     },
     '.content-container::-webkit-scrollbar-thumb': {
         borderRadius: '10px',
-        backgroundColor: 'grey',
+        backgroundColor: alpha(theme.palette.info.main,0.2),
         outline: 'none',
+        boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
+        backdropFilter: "blur(30px)",
     }
 
 }));
@@ -39,6 +42,7 @@ const Index: FC = () => {
                 <SideBar />
                 <ContentBar />
             </div>
+            <CardModal/>
         </MainDiv>
     )
 }

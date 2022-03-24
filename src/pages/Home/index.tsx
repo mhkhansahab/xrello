@@ -4,8 +4,8 @@ import {FC} from 'react'
 const Index: FC = () => {
 
     return (
-        <div>SignUp</div>
+        <div>Home</div>
     )
 }
 
-export default Index
+export default Index;

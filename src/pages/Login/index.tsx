@@ -14,18 +14,9 @@ const Index: FC = () => {
     return (
         <Grid className='pt-4 grid-container'>
             <FormGroup>
-                <Box className='rounded-md bg-custom-light dark:bg-header-black w-full field-box'>
-                    <div className='pl-2  flex items-center'>
-                        <FormControlLabel
-                            classes={{ label: 'field-label' }}
-                            onChange={() => { }
-                            }
-                            control={
-                                <TextField></TextField>
-                            }
-                            label={''}
-                        />
-                    </div>
+                <Box className=''>
+                    <TextField placeholder='Email'></TextField>
+                    <TextField placeholder='Password'></TextField>
                 </Box>
             </FormGroup>
         </Grid >

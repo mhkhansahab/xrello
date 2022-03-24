@@ -9,7 +9,6 @@ import userReducer from "../reducers/userReducer";
 const persistConfig = {
   key: "Logshahah",
   storage: storage,
-  // whitelist: ["themeReducer"],
 };
 
 const Reducer = persistReducer(
@@ -19,8 +18,6 @@ const Reducer = persistReducer(
 
 const middleware = applyMiddleware(thunk, logger);
 const store = createStore(Reducer, middleware);
-
-
 
 const persistor = persistStore(store);
 

@@ -7,7 +7,8 @@ import { styled, alpha } from "@mui/material/styles";
 import { useTheme } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { changeStatus } from "../../redux/actions/statusActions";
-
+import axios from "axios";
+import { baseUrl } from "../../utils/constants";
 
 const Heading = styled("div")(({ theme }) => ({
     fontSize: "25px",
@@ -79,7 +80,40 @@ const Index: FC = () => {
     //@ts-ignore
     const status = useSelector(state => state?.statusReducer?.boardModal);
     const handleClose = () => dispatch(changeStatus({ boardModal: false, boardUpdate: false }));
-    const theme = useTheme();
+    const [data, setData] = useState<{ title: string, description: string }>({ title: '', description: '' });
+
+    const handleChange = (type: string, e: any) => {
+        if (type === 'title') {
+            setData({
+                ...data,
+                title: e?.target?.value
+            })
+        } else {
+            setData({
+                ...data,
+                description: e?.target?.value
+            })
+        }
+    }
+
+    const handleSubmit = () => {
+        const bodyFormData = {
+            title: data?.title,
+            description: data?.description,
+            teamMembers: []
+        }
+        axios({
+            method: "post",
+            url: baseUrl + "board/createBoard",
+            data: bodyFormData,
+            headers: { "Content-Type": "application/json" },
+        })
+            .then((res) => {
+                console.log('response==>',res)
+            })
+            .catch((error: any) => console.log(error));
+    }
+
 
     return (
         <Modal
@@ -97,11 +131,22 @@ const Index: FC = () => {
         >
             <Container>
                 <Heading>Create Board</Heading>
-                <CustomInput type={"text"} placeholder={"Title"} />
+                <CustomInput
+                    value={data?.title}
+                    type={"text"}
+                    placeholder={"Title"}
+                     onChange={(e) => {
+                        handleChange('title', e.target.value);
+                    }} />
                 <br />
-                <CustomInputArea placeholder={"Enter Description"} />
+                <CustomInputArea
+                    value={data?.description}
+                    placeholder={"Enter Description"}
+                    onChange={(e) => {
+                        handleChange('description', e.target.value);
+                    }} />
                 <br />
-                <CustomButton>Save</CustomButton>
+                <CustomButton onClick={handleSubmit}>Save</CustomButton>
             </Container>
         </Modal>
     );

@@ -115,26 +115,6 @@ const onDragEnd = (result: any, columns: any, setColumns: any) => {
         items: destItems,
       },
     });
-
-    console.log(destination.droppableId);
-    bodyFormData = {
-      ...bodyFormData,
-      _id: currentCard?.id,
-    };
-    axios({
-      method: "put",
-      url: baseUrl + "card/updateCard",
-      data: bodyFormData,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": true,
-        Authorization: "Bearer " + token,
-      },
-    })
-      .then((res) => {
-        dispatch(changeStatus({ cardModal: false, cardUpdate: false }));
-      })
-      .catch((error: any) => console.log(error));
   } else {
     const column = columns[source.droppableId];
     const copiedItems = [...column.items];

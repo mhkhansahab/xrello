@@ -149,7 +149,7 @@ const Index: FC = () => {
       />
       <br />
 
-      {errorMsg != "" ? <ErrorMsg>{errorMsg}</ErrorMsg> : null}
+      {errorMsg != "" ? <ErrorMsg>{"*" + errorMsg}</ErrorMsg> : null}
 
       <CustomButton
         onClick={() => {

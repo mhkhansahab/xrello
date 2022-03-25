@@ -1,8 +1,12 @@
-import { FC } from "react";
+import { FC, useState, useEffect } from "react";
 import Navbar from "./../../components/NavBar";
 import { styled, alpha } from "@mui/material/styles";
 import CardModal from "./../../components/CardModal";
 import BoardModal from "./../../components/BoardModal";
+import axios from "axios";
+import { baseUrl } from "../../utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const MainDiv = styled("div")(({ theme }) => ({
   width: "100%",
@@ -57,17 +61,64 @@ const BoardDescription = styled("div")(({ theme }) => ({
   fontWeight: "300",
 }));
 
-const getBoard = (title: string, description: string, members: string) => {
-  return (
-    <Board>
-      <BoardTitle>{title}</BoardTitle>
-      <BoardDescription>{description}</BoardDescription>
-      members : {members}
-    </Board>
-  );
-};
+const Index: FC = () => {
+  const [boards, setBoards] = useState<any>(null);
+  //@ts-ignore
+  const token: any = useSelector((state) => state?.userReducer?.token);
+  //@ts-ignore
+  const id: any = useSelector((state) => state?.userReducer?.id);
 
-const index: FC = () => {
+  const navigate = useNavigate();
+
+  const getAllBoards = () => {
+    let bodyFormData = {
+      _id: id,
+    };
+
+    axios({
+      method: "post",
+      url: baseUrl + "board/getAllBoards",
+      data: bodyFormData,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": true,
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        setBoards(res.data.data);
+      })
+      .catch(async (error) => {
+        console.log(error);
+      });
+  };
+
+  const getBoard = (
+    title: string,
+    description: string,
+    members: string,
+    id: string,
+    i: any
+  ) => {
+    return (
+      <Board
+        onClick={() => {
+          navigate("/board/" + id);
+        }}
+        key={i}
+      >
+        <BoardTitle>{title}</BoardTitle>
+        <BoardDescription>{description}</BoardDescription>
+        members : {members}
+      </Board>
+    );
+  };
+
+  useEffect(() => {
+    getAllBoards();
+  }, []);
+
   return (
     <MainDiv>
       <Navbar />
@@ -83,80 +134,22 @@ const index: FC = () => {
           overflow: "auto",
         }}
       >
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
-
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
-
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
-
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
-
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
-
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
-
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
-
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
-
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
-
-        {getBoard(
-          "Title",
-          "asdasdasdasdfjhafgjhdfgahgsfdasghfdajhgafdjhsgfdghsafdjghs",
-          "35"
-        )}
+        {boards != null && boards.length > 0
+          ? boards.map((e: any, i: any) => {
+              return getBoard(
+                e.title,
+                e.description,
+                e.teamMembers.length.toString(),
+                e._id,
+                i
+              );
+            })
+          : "You Don't have any boards, Add a board."}
       </div>
       <CardModal />
-      <BoardModal/>
+      <BoardModal />
     </MainDiv>
   );
 };
 
-export default index;
+export default Index;

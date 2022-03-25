@@ -1,10 +1,6 @@
 import { FC, useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { styled, alpha } from "@mui/material/styles";
-import { useTheme } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { changeStatus } from "../../redux/actions/statusActions";
 import axios from "axios";
@@ -93,12 +89,13 @@ const Index: FC = () => {
 
     useEffect(() => {
         setBoardId(window.location.href.split("/")[4]);
-        if(currentCard){
+        if (currentCard) {
             setTitle(currentCard?.title);
             setDescription(currentCard?.description);
+            setEmail(currentCard?.email);
         }
-    }, []);
-    
+    }, [currentCard]);
+
     const handleSubmit = () => {
         if (title && description && boardId) {
             let status = '';
@@ -112,31 +109,54 @@ const Index: FC = () => {
             } else {
                 status = "Done"
             }
-            const bodyFormData = {
+            let bodyFormData = {
                 title: title,
                 description: description,
                 boardId: boardId,
                 status: status,
                 assignTo: email
             }
-
-            axios({
-                method: "post",
-                url: baseUrl + "card/createCard",
-                data: bodyFormData,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": true,
-                    Authorization: "Bearer " + token,
+            if (currentCard?.title?.length > 0) {
+                let updated = {
+                    ...bodyFormData,
+                    _id: currentCard?.id
                 }
-            })
-                .then((res) => {
-                    const id = res?.data?.data?._id;
-                    dispatch(changeStatus({ cardModal: false, cardUpdate: false }))
-                    window?.location?.reload();
-
+                axios({
+                    method: "put",
+                    url: baseUrl + "card/updateCard",
+                    data: updated,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": true,
+                        Authorization: "Bearer " + token,
+                    }
                 })
-                .catch((error: any) => console.log(error));
+                    .then((res) => {
+                        dispatch(changeStatus({ cardModal: false, cardUpdate: false }))
+                        window?.location?.reload();
+
+                    })
+                    .catch((error: any) => console.log(error));
+            } else {
+
+                axios({
+                    method: "post",
+                    url: baseUrl + "card/createCard",
+                    data: bodyFormData,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": true,
+                        Authorization: "Bearer " + token,
+                    }
+                })
+                    .then((res) => {
+                        const id = res?.data?.data?._id;
+                        dispatch(changeStatus({ cardModal: false, cardUpdate: false }))
+                        window?.location?.reload();
+
+                    })
+                    .catch((error: any) => console.log(error));
+            }
         }
     }
 
@@ -157,6 +177,7 @@ const Index: FC = () => {
             <Container>
                 <Heading>Create Card</Heading>
                 <CustomInput
+                    defaultValue={title}
                     type={"text"}
                     placeholder={"Title"}
                     onChange={(e) => {
@@ -165,6 +186,7 @@ const Index: FC = () => {
                 />
                 <br />
                 <CustomInputArea
+                    defaultValue={description}
                     placeholder={"Enter Description"}
                     onChange={(e) => {
                         setDescription(e.target.value)
@@ -172,6 +194,7 @@ const Index: FC = () => {
                 />
                 <br />
                 <CustomInput
+                    defaultValue={email}
                     type={"email"}
                     placeholder={"Invite via email"}
                     onChange={(e) => {

@@ -64,6 +64,7 @@ const CustomButton = styled("button")(({ theme }) => ({
   padding: "7px 14px",
   fontWeight: "700",
   color: "#fff",
+  cursor: "pointer"
 }));
 
 const CustomMsg = styled("div")(({ theme }) => ({

@@ -94,6 +94,7 @@ const Index: FC = () => {
       },
     })
       .then((res) => {
+        console.log(res.data.data.teamMembers);
         setMembers(res.data.data.teamMembers);
       })
       .catch((error: any) => console.log(error));

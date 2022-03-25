@@ -40,9 +40,7 @@ const MainDiv = styled("div")(({ theme }) => ({
     boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
     backdropFilter: "blur(30px)",
     color: "#fff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
+    textAlign: "left",
   },
   ".avatar": {
     borderRadius: "100%",
@@ -117,6 +115,26 @@ const onDragEnd = (result: any, columns: any, setColumns: any) => {
         items: destItems,
       },
     });
+
+    console.log(destination.droppableId);
+    bodyFormData = {
+      ...bodyFormData,
+      _id: currentCard?.id,
+    };
+    axios({
+      method: "put",
+      url: baseUrl + "card/updateCard",
+      data: bodyFormData,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": true,
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((res) => {
+        dispatch(changeStatus({ cardModal: false, cardUpdate: false }));
+      })
+      .catch((error: any) => console.log(error));
   } else {
     const column = columns[source.droppableId];
     const copiedItems = [...column.items];
@@ -142,6 +160,7 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
   const [columns, setColumns] = useState<{}>({});
 
   useEffect(() => {
+    console.log(cards);
     cards?.forEach((e: any) => {
       if (e.status == "In Progress") {
         inProgress = [...inProgress, e];
@@ -204,10 +223,11 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                 <div
                   className="add-icon"
                   onClick={() => {
-                    dispatch(changeStatus({ cardModal: true, cardUpdate: true }))
-                    dispatch(setCurrentCard({ status: column.name }))
-                  }
-                  }
+                    dispatch(
+                      changeStatus({ cardModal: true, cardUpdate: true })
+                    );
+                    dispatch(setCurrentCard({ status: column.name }));
+                  }}
                 >
                   <AddIcon />
                 </div>
@@ -238,11 +258,20 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                               {(provided, snapshot) => {
                                 return (
                                   <div
-                                  onClick={() => {
-                                    console.log(item)
-                                    dispatch(setCurrentCard({ title: item?.title, description: item?.description, email: item?.assignTo, id: item?._id }))
-                                    dispatch(changeStatus({ cardModal: true, cardUpdate: true }))
-                                  }}
+                                    onClick={() => {
+                                      dispatch(
+                                        setCurrentCard({
+                                          title: item?.title,
+                                          description: item?.description,
+                                        })
+                                      );
+                                      dispatch(
+                                        changeStatus({
+                                          cardModal: true,
+                                          cardUpdate: true,
+                                        })
+                                      );
+                                    }}
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
@@ -251,14 +280,34 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                                       ...provided.draggableProps.style,
                                     }}
                                   >
+                                    <div
+                                      className="content"
+                                      style={{
+                                        fontWeight: "bold",
+                                        fontSize: "20px",
+                                      }}
+                                    >
+                                      {item.description.length >= 65
+                                        ? item.title
+                                        : item.title}
+                                    </div>
                                     <div className="content">
                                       {item.description.length >= 65
-                                        ? item.description
-                                          .substring(0, 65)
-                                          .concat("...")
-                                        : item.description}
+                                        ? "description : " +
+                                          item.description
+                                            .substring(0, 65)
+                                            .concat("...")
+                                        : "desc: " + item.description}
                                     </div>
-                                    <div className="avatar"></div>
+
+                                    <div
+                                      style={{
+                                        fontSize: "10px",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      {"asignee: " + item.assignTo}
+                                    </div>
                                   </div>
                                 );
                               }}
@@ -275,7 +324,7 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
           );
         })}
       </DragDropContext>
-    </MainDiv >
+    </MainDiv>
   );
 };
 

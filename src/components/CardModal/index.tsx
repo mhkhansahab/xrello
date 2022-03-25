@@ -82,6 +82,8 @@ const Index: FC = () => {
     //@ts-ignore
     const status = useSelector(state => state?.statusReducer?.cardModal);
     //@ts-ignore
+    const cardStatus = useSelector(state => state?.cardReducer?.status);
+    //@ts-ignore
     const token: any = useSelector((state) => state?.userReducer?.token);
     const handleClose = () => dispatch(changeStatus({ cardModal: false, cardUpdate: false }));
     const [title, setTitle] = useState<string>("");
@@ -95,17 +97,26 @@ const Index: FC = () => {
 
     const handleSubmit = () => {
         if (title && description && boardId) {
-
+            let status = '';
+            if (cardStatus === "To do") {
+                status = "Todo"
+            } else if (cardStatus === "In Progress") {
+                status = "In Progress"
+            }
+            else if (cardStatus === "Review") {
+                status = "Review"
+            } else {
+                status = "Done"
+            }
             const bodyFormData = {
                 title: title,
                 description: description,
                 boardId: boardId,
-                assignTo:'',
-                status: ''
+                status: status,
             }
             axios({
                 method: "post",
-                url: baseUrl + "board/createBoard",
+                url: baseUrl + "card/createCard",
                 data: bodyFormData,
                 headers: {
                     "Content-Type": "application/json",
@@ -154,7 +165,7 @@ const Index: FC = () => {
                     }}
                 />
                 <br />
-                <CustomButton>Save</CustomButton>
+                <CustomButton onClick={handleSubmit}>Save</CustomButton>
             </Container>
         </Modal>
     );

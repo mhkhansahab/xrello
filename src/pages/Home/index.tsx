@@ -42,7 +42,7 @@ const MainDiv = styled("div")(({ theme }) => ({
 
 const Index: FC = () => {
   const [boardId, setBoardId] = useState("");
-  const [boardDetails, setboardDetails] = useState(null);
+  const [cards, setCards] = useState([]);
   //@ts-ignore
   const token: any = useSelector((state) => state?.userReducer?.token);
 
@@ -74,8 +74,8 @@ const Index: FC = () => {
       },
     })
       .then((res) => {
-        console.log(res);
-        setboardDetails(res.data.data);
+        console.log(res.data.cards);
+        setCards(res.data.cards);
       })
       .catch(async (error) => {
         console.log(error);
@@ -95,7 +95,7 @@ const Index: FC = () => {
         }}
       >
         <SideBar />
-        <ContentBar />
+        <ContentBar cards={cards} />
       </div>
       <CardModal />
       <BoardModal />

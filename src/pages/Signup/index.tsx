@@ -76,6 +76,20 @@ const CustomMsg = styled("div")(({ theme }) => ({
   cursor: "pointer",
 }));
 
+const ErrorMsg = styled("div")(({ theme }) => ({
+  fontSize: "15px",
+  fontWeight: "bold",
+  maxWidth: "250px",
+  textAlign: "center",
+  marginLeft: "auto",
+  marginRight: "auto",
+  marginTop: "9px",
+  border: "none",
+  borderRadius: "5px",
+  color: "#fff",
+  cursor: "pointer",
+}));
+
 const Index: FC = () => {
   const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState<string>("");
@@ -85,11 +99,12 @@ const Index: FC = () => {
   const [profilePic, setProfilePic] = useState<string>("");
   const dispatch = useDispatch();
 
-
   const signup = () => {
     if (name == "" || email == "" || password == "") {
       setErrorMsg("Enter all information.");
       return;
+    } else {
+      setErrorMsg("SigningIn...");
     }
 
     let bodyFormData = {
@@ -104,24 +119,25 @@ const Index: FC = () => {
       url: baseUrl + "auth/signup",
       data: { ...bodyFormData },
       headers: { "Content-Type": "application/json" },
-    }).then((res) => {
-      if (res?.data?.status == "failed") {
-        setErrorMsg(res?.data?.msg);
-      } else {
-        const token = res?.data?.token;
-        const id = res?.data?.data?._id;
-        const username = name;
-
-        const obj = {
-          token,
-          id,
-          username,
-          email
-        }
-
-        dispatch(addUser(obj));
-      }
     })
+      .then((res) => {
+        if (res?.data?.status == "failed") {
+          setErrorMsg(res?.data?.msg);
+        } else {
+          const token = res?.data?.token;
+          const id = res?.data?.data?._id;
+          const username = name;
+
+          const obj = {
+            token,
+            id,
+            username,
+            email,
+          };
+
+          dispatch(addUser(obj));
+        }
+      })
       .catch(async (error) => {
         if (error?.response?.data?.status == "failed") {
           setErrorMsg(error?.response?.data?.msg);
@@ -129,8 +145,6 @@ const Index: FC = () => {
           console.log(error);
         }
       });
-
-
   };
 
   return (
@@ -160,7 +174,8 @@ const Index: FC = () => {
         }}
       />
       <br />
-      <div style={{ width: "100%", height: "10px" }}></div>
+      {errorMsg != "" ? <ErrorMsg>{errorMsg}</ErrorMsg> : null}
+      {/* <div style={{ width: "100%", height: "10px" }}></div>
       <CustomLabelFile htmlFor={"file"}>
         Select profile picture &nbsp;&nbsp;&nbsp;
       </CustomLabelFile>
@@ -172,7 +187,7 @@ const Index: FC = () => {
           setProfilePic(e.target.value);
         }}
       />
-      <div style={{ width: "100%", height: "10px" }}></div>
+      <div style={{ width: "100%", height: "10px" }}></div> */}
       <CustomButton
         onClick={() => {
           signup();

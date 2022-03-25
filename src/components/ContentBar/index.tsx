@@ -94,7 +94,7 @@ const itemsFromBackend = [
 const columnsFromBackend = {
   "0": {
     name: "Requested",
-    items: itemsFromBackend,
+    items: [],
   },
   "1": {
     name: "To do",
@@ -147,9 +147,56 @@ const onDragEnd = (result: any, columns: any, setColumns: any) => {
   }
 };
 
-const Index: FC = () => {
+const Index: FC<{ cards: any }> = ({ cards }) => {
   const dispatch = useDispatch();
-  const [columns, setColumns] = useState(columnsFromBackend);
+  let [inProgress, setInProgress] = useState<any>([]);
+  let [review, setReview] = useState<any>([]);
+  let [done, setDone] = useState<any>([]);
+  let [todo, setTodo] = useState<any>([]);
+
+  const [columns, setColumns] = useState([]);
+
+  useEffect(() => {
+    console.log(cards);
+    cards?.forEach((e: any) => {
+      if (e.status == "In Progress") {
+        inProgress = [...inProgress, e];
+        //@ts-ignore
+        setInProgress(inProgress);
+      } else if (e.status == "Review") {
+        review = [...review, e];
+        //@ts-ignore
+        setReview(review);
+      } else if (e.status == "Done") {
+        done = [...done, e];
+        //@ts-ignore
+        setDone(done);
+      } else if (e.status == "Todo") {
+        todo = [...todo, e];
+        //@ts-ignore
+        setTodo(todo);
+      }
+    });
+
+    setColumns({
+      "0": {
+        name: "Requested",
+        items: review,
+      },
+      "1": {
+        name: "To do",
+        items: todo,
+      },
+      "2": {
+        name: "In Progress",
+        items: inProgress,
+      },
+      "3": {
+        name: "Done",
+        items: done,
+      },
+    });
+  }, [cards]);
 
   return (
     <MainDiv>
@@ -170,7 +217,14 @@ const Index: FC = () => {
             >
               <div className="columns" style={{ borderRadius: "5px" }}>
                 <div>{column.name}</div>
-                <div className="add-icon" onClick={() => dispatch(changeStatus({ cardModal: true, cardUpdate: true }))}>
+                <div
+                  className="add-icon"
+                  onClick={() =>
+                    dispatch(
+                      changeStatus({ cardModal: true, cardUpdate: true })
+                    )
+                  }
+                >
                   <AddIcon />
                 </div>
               </div>
@@ -186,15 +240,15 @@ const Index: FC = () => {
                           padding: 4,
                           width: 250,
                           minHeight: "250px",
-                          maxHeight: 'calc(100vh - 180px)',
+                          maxHeight: "calc(100vh - 180px)",
                           overflowY: "auto",
                         }}
                       >
                         {column.items.map((item, index) => {
                           return (
                             <Draggable
-                              key={item.id}
-                              draggableId={item.id}
+                              key={item?.id}
+                              draggableId={item?.id}
                               index={index}
                             >
                               {(provided, snapshot) => {
@@ -209,11 +263,11 @@ const Index: FC = () => {
                                     }}
                                   >
                                     <div className="content">
-                                      {item.content.length >= 65
-                                        ? item.content
-                                          .substring(0, 65)
-                                          .concat("...")
-                                        : item.content}
+                                      {item?.content.length >= 65
+                                        ? item?.content
+                                            .substring(0, 65)
+                                            .concat("...")
+                                        : item?.content}
                                     </div>
                                     <div className="avatar"></div>
                                   </div>

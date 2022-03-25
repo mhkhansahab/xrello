@@ -203,9 +203,9 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                 <div>{column.name}</div>
                 <div
                   className="add-icon"
-                  onClick={() =>{
-                    dispatch(changeStatus({ cardModal: true, cardUpdate: true}))
-                    dispatch(setCurrentCard({status: column.name}))
+                  onClick={() => {
+                    dispatch(changeStatus({ cardModal: true, cardUpdate: true }))
+                    dispatch(setCurrentCard({ status: column.name }))
                   }
                   }
                 >
@@ -238,6 +238,10 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                               {(provided, snapshot) => {
                                 return (
                                   <div
+                                  onClick={() => {
+                                    dispatch(setCurrentCard({ title: item?.title, description: item?.description }))
+                                    dispatch(changeStatus({ cardModal: true, cardUpdate: true }))
+                                  }}
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
@@ -267,9 +271,9 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                 </Droppable>
               </div>
             </div>
-      );
+          );
         })}
-    </DragDropContext>
+      </DragDropContext>
     </MainDiv >
   );
 };

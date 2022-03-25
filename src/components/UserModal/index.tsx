@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import { styled, alpha } from "@mui/material/styles";
 import { useSelector, useDispatch } from "react-redux";
@@ -74,42 +74,29 @@ const CustomButton = styled("div")(({ theme }) => ({
 
 const Index: FC = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const handleClose = () => dispatch(changeStatus({ userModal: false }));
     //@ts-ignore
-    const status = useSelector(state => state?.statusReducer?.boardModal);
-    const handleClose = () => dispatch(changeStatus({ boardModal: false, boardUpdate: false }));
-    const [title, setTitle] = useState<string>("");
-    const [description, setDescription] = useState<string>("");
+    const status = useSelector(state => state?.statusReducer?.userModal);
     //@ts-ignore
     const token: any = useSelector((state) => state?.userReducer?.token);
 
-    const handleSubmit = () => {
-        if (title && description) {
-
-            const bodyFormData = {
-                title: title,
-                description: description,
-                teamMembers: []
+    useEffect(() => {
+        const id = window.location.href.split("/")[4];
+        axios({
+            method: "post",
+            url: baseUrl + "board/getAllTeamMember",
+            data: { boardId: id },
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": true,
+                Authorization: "Bearer " + token,
             }
-            axios({
-                method: "post",
-                url: baseUrl + "board/createBoard",
-                data: bodyFormData,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": true,
-                    Authorization: "Bearer " + token,
-                }
+        })
+            .then((res) => {
+                console.log(res);
             })
-                .then((res) => {
-                    const id = res?.data?.data?._id;
-                    dispatch(changeStatus({ boardModal: false, boardUpdate: false }))
-                    navigate(`/board/${id}`)
-
-                })
-                .catch((error: any) => console.log(error));
-        }
-    }
+            .catch((error: any) => console.log(error));
+    }, []);
 
 
     return (
@@ -127,21 +114,8 @@ const Index: FC = () => {
             }}
         >
             <Container>
-                <Heading>Create Board</Heading>
-                <CustomInput
-                    type={"text"}
-                    placeholder={"Title"}
-                    onChange={(e) => {
-                       setTitle(e.target.value)
-                    }} />
-                <br />
-                <CustomInputArea
-                    placeholder={"Enter Description"}
-                    onChange={(e) => {
-                        setDescription(e.target.value)
-                    }} />
-                <br />
-                <CustomButton onClick={handleSubmit}>Save</CustomButton>
+                <Heading>Members</Heading>
+
             </Container>
         </Modal>
     );

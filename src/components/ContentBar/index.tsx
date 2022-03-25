@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { FC, useEffect, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
@@ -69,26 +70,9 @@ const MainDiv = styled("div")(({ theme }) => ({
 }));
 
 const itemsFromBackend = [
-  { id: "1", content: "Second taskas asas" },
-  { id: "2", content: "Third task" },
-  { id: "3", content: "Fourth task" },
-  { id: "4", content: "Fifth task" },
-  {
-    id: "5",
-    content:
-      "First taskasdasdasdasdasdasd asdasdasd asdasdasd asdasdasd asdasd asdasd asdasd asdasdsa asdsad",
-  },
-  { id: "6", content: "Second taskas asas" },
-  { id: "7", content: "Third task" },
-  { id: "8", content: "Fourth task" },
-  {
-    id: "0",
-    content:
-      "First taskasdasdasdasdasdasd asdasdasd asdasdasd asdasdasd asdasd asdasd asdasd asdasdsa asdsad",
-  },
-  { id: "9", content: "Second taskas asas" },
-  { id: "10", content: "Third task" },
-  { id: "11", content: "Fourth task" },
+  { _id: "1", description: "Second taskas asas" },
+  { _id: "2", description: "Third task" },
+  { _id: "3", description: "Fourth task" },
 ];
 
 const columnsFromBackend = {
@@ -154,7 +138,7 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
   let [done, setDone] = useState<any>([]);
   let [todo, setTodo] = useState<any>([]);
 
-  const [columns, setColumns] = useState([]);
+  const [columns, setColumns] = useState(columnsFromBackend);
 
   useEffect(() => {
     console.log(cards);
@@ -247,8 +231,8 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                         {column.items.map((item, index) => {
                           return (
                             <Draggable
-                              key={item?.id}
-                              draggableId={item?.id}
+                              key={item._id}
+                              draggableId={item._id}
                               index={index}
                             >
                               {(provided, snapshot) => {
@@ -263,11 +247,11 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                                     }}
                                   >
                                     <div className="content">
-                                      {item?.content.length >= 65
-                                        ? item?.content
+                                      {item.description.length >= 65
+                                        ? item.description
                                             .substring(0, 65)
                                             .concat("...")
-                                        : item?.content}
+                                        : item.description}
                                     </div>
                                     <div className="avatar"></div>
                                   </div>

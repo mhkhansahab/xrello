@@ -5,6 +5,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import themeReducer from "../reducers/themeReducer";
 import userReducer from "../reducers/userReducer";
+import statusReducer from "../reducers/statusReducer";
 
 const persistConfig = {
   key: "Logshahah",
@@ -13,7 +14,7 @@ const persistConfig = {
 
 const Reducer = persistReducer(
   persistConfig,
-  combineReducers({  themeReducer , userReducer})
+  combineReducers({  themeReducer , userReducer, statusReducer})
 );
 
 const middleware = applyMiddleware(thunk, logger);

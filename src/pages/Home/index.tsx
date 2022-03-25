@@ -4,6 +4,7 @@ import SideBar from "./../../components/SideBar";
 import { styled, alpha } from "@mui/material/styles";
 import ContentBar from "./../../components/ContentBar";
 import CardModal from "./../../components/CardModal";
+import BoardModal from "./../../components/BoardModal";
 import { display } from "@mui/system";
 
 const MainDiv = styled("div")(({ theme }) => ({
@@ -52,6 +53,7 @@ const Index: FC = () => {
         <ContentBar />
       </div>
       <CardModal />
+      <BoardModal/>
     </MainDiv>
   );
 };

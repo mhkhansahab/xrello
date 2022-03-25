@@ -1,6 +1,8 @@
 import { FC } from "react";
 import Navbar from "./../../components/NavBar";
 import { styled, alpha } from "@mui/material/styles";
+import CardModal from "./../../components/CardModal";
+import BoardModal from "./../../components/BoardModal";
 
 const MainDiv = styled("div")(({ theme }) => ({
   width: "100%",
@@ -151,6 +153,8 @@ const index: FC = () => {
           "35"
         )}
       </div>
+      <CardModal />
+      <BoardModal/>
     </MainDiv>
   );
 };

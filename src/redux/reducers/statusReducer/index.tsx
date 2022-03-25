@@ -6,25 +6,25 @@ type ActionType = {
 };
 
 type StateType = {
-    username: string | null,
-    email: string | null,
-    token: string | null,
-    id: string | null,
+    cardModal: true | false,
+    cardUpdate: true | false,
+    boardModal: true | false,
+    boardUpdate: true | false,
 };
 
 const initState: StateType = {
-    username: null,
-    email: null,
-    token: null,
-    id: null,
+    cardModal: false,
+    cardUpdate: false,
+    boardModal: false,
+    boardUpdate:  false
 };
 
-const userReducer = (
+const statusReducer = (
     state: StateType = initState,
     action: ActionType
 ): StateType => {
     switch (action.type) {
-        case "ADD_USER": {
+        case "CHANGE_STATUS": {
             return {
                 ...state,
                 ...action.payload
@@ -34,4 +34,4 @@ const userReducer = (
     return state;
 };
 
-export default userReducer;
+export default statusReducer;

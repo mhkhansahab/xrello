@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import AddIcon from "@mui/icons-material/Add";
+import { useDispatch } from "react-redux";
+import { changeStatus } from "../../redux/actions/statusActions";
 
 const MainDiv = styled("div")(({ theme }) => ({
   height: "98%",
@@ -146,6 +148,7 @@ const onDragEnd = (result: any, columns: any, setColumns: any) => {
 };
 
 const Index: FC = () => {
+  const dispatch = useDispatch();
   const [columns, setColumns] = useState(columnsFromBackend);
 
   return (
@@ -167,7 +170,7 @@ const Index: FC = () => {
             >
               <div className="columns" style={{ borderRadius: "5px" }}>
                 <div>{column.name}</div>
-                <div className="add-icon">
+                <div className="add-icon" onClick={() => dispatch(changeStatus({ cardModal: true, cardUpdate: true }))}>
                   <AddIcon />
                 </div>
               </div>
@@ -208,8 +211,8 @@ const Index: FC = () => {
                                     <div className="content">
                                       {item.content.length >= 65
                                         ? item.content
-                                            .substring(0, 65)
-                                            .concat("...")
+                                          .substring(0, 65)
+                                          .concat("...")
                                         : item.content}
                                     </div>
                                     <div className="avatar"></div>

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -7,7 +7,9 @@ import { styled, alpha } from "@mui/material/styles";
 import { useTheme } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { changeStatus } from "../../redux/actions/statusActions";
-
+import axios from "axios";
+import { baseUrl } from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const Heading = styled("div")(({ theme }) => ({
     fontSize: "25px",
@@ -76,10 +78,50 @@ const CustomButton = styled("div")(({ theme }) => ({
 
 const Index: FC = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     //@ts-ignore
     const status = useSelector(state => state?.statusReducer?.cardModal);
+    //@ts-ignore
+    const token: any = useSelector((state) => state?.userReducer?.token);
     const handleClose = () => dispatch(changeStatus({ cardModal: false, cardUpdate: false }));
-    const theme = useTheme();
+    const [title, setTitle] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+    const [boardId, setBoardId] = useState<string>("");
+
+    useEffect(() => {
+        setBoardId(window.location.href.split("/")[4]);
+    }, []);
+
+
+    const handleSubmit = () => {
+        if (title && description && boardId) {
+
+            const bodyFormData = {
+                title: title,
+                description: description,
+                boardId: boardId,
+                assignTo:'',
+                status: ''
+            }
+            axios({
+                method: "post",
+                url: baseUrl + "board/createBoard",
+                data: bodyFormData,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": true,
+                    Authorization: "Bearer " + token,
+                }
+            })
+                .then((res) => {
+                    const id = res?.data?.data?._id;
+                    dispatch(changeStatus({ cardModal: false, cardUpdate: false }))
+                    navigate(`/board/${id}`)
+
+                })
+                .catch((error: any) => console.log(error));
+        }
+    }
 
     return (
         <Modal
@@ -97,9 +139,20 @@ const Index: FC = () => {
         >
             <Container>
                 <Heading>Create Card</Heading>
-                <CustomInput type={"text"} placeholder={"Title"} />
+                <CustomInput
+                    type={"text"}
+                    placeholder={"Title"}
+                    onChange={(e) => {
+                        setTitle(e.target.value)
+                    }}
+                />
                 <br />
-                <CustomInputArea placeholder={"Enter Description"} />
+                <CustomInputArea
+                    placeholder={"Enter Description"}
+                    onChange={(e) => {
+                        setDescription(e.target.value)
+                    }}
+                />
                 <br />
                 <CustomButton>Save</CustomButton>
             </Container>

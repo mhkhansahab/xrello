@@ -1,9 +1,10 @@
 import { FC, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
-import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import {useDispatch} from 'react-redux';
 import { useTheme } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
+import {changeStatus} from "./../../redux/actions/statusActions/index";
 
 const MainDiv = styled("div")(({ theme }) => ({
   width: "230px",
@@ -58,6 +59,7 @@ const LinkTab = styled("div")(({ theme }) => ({
 }));
 
 const Index: FC = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -68,7 +70,7 @@ const Index: FC = () => {
   return (
     <MainDiv>
       <LinkTab onClick={() => navigate("/")}>&#8226; Boards</LinkTab>
-      <LinkTab onClick={() => navigate("/")}>&#8226; Members</LinkTab>
+      <LinkTab onClick={() => dispatch(changeStatus({userModal: true}))}>&#8226; Members</LinkTab>
       <LinkTab onClick={() => navigate("/")}>&#8226; Settings</LinkTab>
     </MainDiv>
   );

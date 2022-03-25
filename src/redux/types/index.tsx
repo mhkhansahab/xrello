@@ -3,3 +3,9 @@ export const CHANGE_THEME = "CHANGE_THEME";
 export const ADD_USER = "ADD_USER";
 
 export const CHANGE_STATUS= "CHANGE_STATUS";
+
+export const SET_ALL_CARDS= "SET_ALL_CARDS";
+export const SET_CURRENT_CARD = "SET_CURRENT_CARD";
+
+export const SET_ALL_BOARDS= "SET_ALL_BOARDS";
+export const SET_CURRENT_BOARD = "SET_CURRENT_BOARD";

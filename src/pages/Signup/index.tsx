@@ -105,7 +105,7 @@ const Index: FC = () => {
       setErrorMsg("Enter all information.");
       return;
     } else {
-      setErrorMsg("SigningIn...");
+      setErrorMsg("Signing up...");
     }
 
     let bodyFormData = {

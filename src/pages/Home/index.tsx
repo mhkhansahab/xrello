@@ -5,6 +5,7 @@ import { styled, alpha } from "@mui/material/styles";
 import ContentBar from "./../../components/ContentBar";
 import CardModal from "./../../components/CardModal";
 import BoardModal from "./../../components/BoardModal";
+import UserModal from "./../../components/UserModal";
 import { display } from "@mui/system";
 import axios from "axios";
 import { baseUrl } from "../../utils/constants";
@@ -98,6 +99,7 @@ const Index: FC = () => {
       </div>
       <CardModal />
       <BoardModal />
+      <UserModal/>
     </MainDiv>
   );
 };

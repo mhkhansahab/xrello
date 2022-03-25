@@ -62,7 +62,8 @@ const CustomMsg = styled("div")(({ theme }) => ({
 }));
 
 const ErrorMsg = styled("div")(({ theme }) => ({
-  fontSize: "13px",
+  fontSize: "15px",
+  fontWeight: "bold",
   maxWidth: "250px",
   textAlign: "center",
   marginLeft: "auto",
@@ -86,6 +87,7 @@ const Index: FC = () => {
       setErrorMsg("Enter all information.");
       return;
     } else {
+      setErrorMsg("LogingIn...");
     }
 
     let bodyFormData = {
@@ -107,14 +109,14 @@ const Index: FC = () => {
           const id = res?.data?.data?._id;
           const username = res?.data?.data?.username;
           const email = res?.data?.data?.email;
-  
+
           const obj = {
             token,
             id,
             username,
-            email
-          }
-  
+            email,
+          };
+
           dispatch(addUser(obj));
         }
       })

@@ -7,13 +7,13 @@ import themeReducer from "../reducers/themeReducer";
 import userReducer from "../reducers/userReducer";
 
 const persistConfig = {
-  key: "Logshahah",
+  key: "Logs",
   storage: storage,
 };
 
 const Reducer = persistReducer(
   persistConfig,
-  combineReducers({  themeReducer , userReducer})
+  combineReducers({ themeReducer, userReducer })
 );
 
 const middleware = applyMiddleware(thunk, logger);

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeStatus } from "../../redux/actions/statusActions";
 
 const MainDiv = styled("div")(({ theme }) => ({
@@ -62,7 +62,11 @@ const Index: FC = () => {
       <LinkTab onClick={() => navigate("/")} style={{ marginRight: "auto" }}>
         Trello
       </LinkTab>
-      <LinkTab onClick={() => dispatch(changeStatus({ boardModal: true, boardUpdate: true }))}>
+      <LinkTab
+        onClick={() =>
+          dispatch(changeStatus({ boardModal: true, boardUpdate: true }))
+        }
+      >
         <div className="button">
           <AddIcon />
           {!isMobile ? <span className="board-button">Create Board</span> : ""}
@@ -82,8 +86,11 @@ const Index: FC = () => {
             boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
           }}
           onClick={() => {
-            window.localStorage.removeItem("persist:Logs");
-            window.location.reload();
+            let confirm = window.confirm("Do you wan't to logout?");
+            if (confirm) {
+              window.localStorage.removeItem("persist:Logs");
+              window.location.reload();
+            }
           }}
         >
           {username ? username.split("")[0] : "N"}

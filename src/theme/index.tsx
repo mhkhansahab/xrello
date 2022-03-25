@@ -37,26 +37,6 @@ const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
     mode,
     ...(mode === "light"
       ? {
-          // palette values for light mode
-          primary: {
-            main: "#fff",
-          },
-          info: {
-            main: "#000",
-            light: "#f6383a",
-            dark: "#eac074",
-            contrastText: "#fff",
-          },
-          background: {
-            default: "#fff",
-            paper: "#fff",
-          },
-          text: {
-            primary: "#fff",
-            secondary: "#fff",
-          },
-        }
-      : {
           // palette values for dark mode
           primary: {
             main: "#fff",
@@ -69,6 +49,26 @@ const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
           },
           background: {
             default: "#000",
+            paper: "#fff",
+          },
+          text: {
+            primary: "#fff",
+            secondary: "#fff",
+          },
+        }
+      : {
+          // palette values for light mode
+          primary: {
+            main: "#fff",
+          },
+          info: {
+            main: "#000",
+            light: "#f6383a",
+            dark: "#eac074",
+            contrastText: "#fff",
+          },
+          background: {
+            default: "#fff",
             paper: "#fff",
           },
           text: {

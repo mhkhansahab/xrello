@@ -54,6 +54,9 @@ const Index: FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  //@ts-ignore
+  const username: any = useSelector((state) => state?.userReducer?.username);
+
   return (
     <MainDiv>
       <LinkTab onClick={() => navigate("/")} style={{ marginRight: "auto" }}>
@@ -68,13 +71,23 @@ const Index: FC = () => {
       <LinkTab onClick={() => navigate("/")}>
         <div
           style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             borderRadius: "100%",
             height: "30px",
             width: "30px",
-            backgroundColor: "#fff",
+            fontWeight: "bold",
+            background: `linear-gradient( 130deg,  ${theme?.palette?.info?.light} 11.2%, ${theme?.palette?.info?.dark} 78% )`,
             boxShadow: "0 0 1rem 0 rgba(0, 0, 0, .2)",
           }}
-        ></div>
+          onClick={() => {
+            window.localStorage.removeItem("persist:Logs");
+            window.location.reload();
+          }}
+        >
+          {username ? username.split("")[0] : "N"}
+        </div>
       </LinkTab>
     </MainDiv>
   );

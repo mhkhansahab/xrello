@@ -8,7 +8,7 @@ import userReducer from "../reducers/userReducer";
 import statusReducer from "../reducers/statusReducer";
 
 const persistConfig = {
-  key: "Logshahah",
+  key: "Logs",
   storage: storage,
 };
 

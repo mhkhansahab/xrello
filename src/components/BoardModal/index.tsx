@@ -104,7 +104,7 @@ const Index: FC = () => {
         .then((res) => {
           const id = res?.data?.data?._id;
           dispatch(changeStatus({ boardModal: false, boardUpdate: false }));
-          navigate(`/dashboard`);
+          window.location.href = "/dashboard";
         })
         .catch((error: any) => console.log(error));
     }

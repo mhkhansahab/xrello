@@ -82,30 +82,47 @@ const Index: FC = () => {
     //@ts-ignore
     const status = useSelector(state => state?.statusReducer?.cardModal);
     //@ts-ignore
+    const currentCard = useSelector(state => state?.cardReducer?.currentCard);
+    //@ts-ignore
     const token: any = useSelector((state) => state?.userReducer?.token);
     const handleClose = () => dispatch(changeStatus({ cardModal: false, cardUpdate: false }));
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
     const [boardId, setBoardId] = useState<string>("");
 
     useEffect(() => {
         setBoardId(window.location.href.split("/")[4]);
+        if(currentCard){
+            setTitle(currentCard?.title);
+            setDescription(currentCard?.description);
+        }
     }, []);
-
-
+    
     const handleSubmit = () => {
         if (title && description && boardId) {
-
+            let status = '';
+            if (currentCard?.status === "To do") {
+                status = "Todo"
+            } else if (currentCard?.status === "In Progress") {
+                status = "In Progress"
+            }
+            else if (currentCard?.status === "Review") {
+                status = "Review"
+            } else {
+                status = "Done"
+            }
             const bodyFormData = {
                 title: title,
                 description: description,
                 boardId: boardId,
-                assignTo:'',
-                status: ''
+                status: status,
+                assignTo: email
             }
+
             axios({
                 method: "post",
-                url: baseUrl + "board/createBoard",
+                url: baseUrl + "card/createCard",
                 data: bodyFormData,
                 headers: {
                     "Content-Type": "application/json",
@@ -116,7 +133,7 @@ const Index: FC = () => {
                 .then((res) => {
                     const id = res?.data?.data?._id;
                     dispatch(changeStatus({ cardModal: false, cardUpdate: false }))
-                    navigate(`/board/${id}`)
+                    window?.location?.reload();
 
                 })
                 .catch((error: any) => console.log(error));
@@ -154,7 +171,15 @@ const Index: FC = () => {
                     }}
                 />
                 <br />
-                <CustomButton>Save</CustomButton>
+                <CustomInput
+                    type={"email"}
+                    placeholder={"Invite via email"}
+                    onChange={(e) => {
+                        setEmail(e.target.value)
+                    }}
+                />
+                <br />
+                <CustomButton onClick={handleSubmit}>Save</CustomButton>
             </Container>
         </Modal>
     );

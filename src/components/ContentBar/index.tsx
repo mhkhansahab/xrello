@@ -7,6 +7,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch } from "react-redux";
 import { changeStatus } from "../../redux/actions/statusActions";
+import { setCurrentCard } from "../../redux/actions/cardActions";
 
 const MainDiv = styled("div")(({ theme }) => ({
   height: "98%",
@@ -202,10 +203,10 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                 <div>{column.name}</div>
                 <div
                   className="add-icon"
-                  onClick={() =>
-                    dispatch(
-                      changeStatus({ cardModal: true, cardUpdate: true })
-                    )
+                  onClick={() => {
+                    dispatch(changeStatus({ cardModal: true, cardUpdate: true }))
+                    dispatch(setCurrentCard({ status: column.name }))
+                  }
                   }
                 >
                   <AddIcon />
@@ -237,6 +238,10 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                               {(provided, snapshot) => {
                                 return (
                                   <div
+                                  onClick={() => {
+                                    dispatch(setCurrentCard({ title: item?.title, description: item?.description }))
+                                    dispatch(changeStatus({ cardModal: true, cardUpdate: true }))
+                                  }}
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
@@ -269,7 +274,7 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
           );
         })}
       </DragDropContext>
-    </MainDiv>
+    </MainDiv >
   );
 };
 

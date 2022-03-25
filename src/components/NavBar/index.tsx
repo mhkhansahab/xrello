@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { changeStatus } from "../../redux/actions/statusActions";
 
 const MainDiv = styled("div")(({ theme }) => ({
   width: "96%",
@@ -48,6 +49,7 @@ const LinkTab = styled("div")(({ theme }) => ({
 }));
 
 const Index: FC = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -60,7 +62,7 @@ const Index: FC = () => {
       <LinkTab onClick={() => navigate("/")} style={{ marginRight: "auto" }}>
         Trello
       </LinkTab>
-      <LinkTab onClick={() => navigate("/")}>
+      <LinkTab onClick={() => dispatch(changeStatus({ boardModal: true, boardUpdate: true }))}>
         <div className="button">
           <AddIcon />
           {!isMobile ? <span className="board-button">Create Board</span> : ""}

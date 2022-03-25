@@ -60,7 +60,7 @@ const Index: FC = () => {
   return (
     <MainDiv>
       <LinkTab onClick={() => navigate("/")} style={{ marginRight: "auto" }}>
-        Trello
+        Xrello
       </LinkTab>
       <LinkTab
         onClick={() =>

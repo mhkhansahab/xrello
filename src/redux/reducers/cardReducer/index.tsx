@@ -6,9 +6,9 @@ type ActionType = {
 };
 
 type Card1 = {
-    title: string | null,
-    description: string | null,
-    status: string | null
+    title?: string | null,
+    description?: string | null,
+    status?: string | null
 };
 
 type Card2 = {

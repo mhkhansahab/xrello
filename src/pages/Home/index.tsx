@@ -5,13 +5,11 @@ import { styled, alpha } from "@mui/material/styles";
 import ContentBar from "./../../components/ContentBar";
 import CardModal from "./../../components/CardModal";
 import BoardModal from "./../../components/BoardModal";
-<<<<<<< HEAD
-=======
+import UserModal from "./../../components/UserModal";
 import { display } from "@mui/system";
 import axios from "axios";
 import { baseUrl } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
->>>>>>> 6ef00df3cbb36a8a5dd0026b30d7fb271bacc387
 
 const MainDiv = styled("div")(({ theme }) => ({
   width: "100%",
@@ -62,7 +60,7 @@ const Index: FC = () => {
     }
 
     let bodyFormData = {
-      _id: boardId,
+      boardId: boardId,
     };
 
     axios({
@@ -101,6 +99,7 @@ const Index: FC = () => {
       </div>
       <CardModal />
       <BoardModal />
+      <UserModal/>
     </MainDiv>
   );
 };

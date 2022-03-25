@@ -138,10 +138,9 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
   let [done, setDone] = useState<any>([]);
   let [todo, setTodo] = useState<any>([]);
 
-  const [columns, setColumns] = useState(columnsFromBackend);
+  const [columns, setColumns] = useState<{}>({});
 
   useEffect(() => {
-    console.log(cards);
     cards?.forEach((e: any) => {
       if (e.status == "In Progress") {
         inProgress = [...inProgress, e];
@@ -164,16 +163,16 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
 
     setColumns({
       "0": {
-        name: "Requested",
-        items: review,
-      },
-      "1": {
         name: "To do",
         items: todo,
       },
-      "2": {
+      "1": {
         name: "In Progress",
         items: inProgress,
+      },
+      "2": {
+        name: "Review",
+        items: review,
       },
       "3": {
         name: "Done",
@@ -249,8 +248,8 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                                     <div className="content">
                                       {item.description.length >= 65
                                         ? item.description
-                                            .substring(0, 65)
-                                            .concat("...")
+                                          .substring(0, 65)
+                                          .concat("...")
                                         : item.description}
                                     </div>
                                     <div className="avatar"></div>

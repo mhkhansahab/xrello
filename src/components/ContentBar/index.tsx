@@ -239,7 +239,8 @@ const Index: FC<{ cards: any }> = ({ cards }) => {
                                 return (
                                   <div
                                   onClick={() => {
-                                    dispatch(setCurrentCard({ title: item?.title, description: item?.description }))
+                                    console.log(item)
+                                    dispatch(setCurrentCard({ title: item?.title, description: item?.description, email: item?.assignTo, id: item?._id }))
                                     dispatch(changeStatus({ cardModal: true, cardUpdate: true }))
                                   }}
                                     ref={provided.innerRef}

@@ -8,7 +8,9 @@ type ActionType = {
 type Card1 = {
     title?: string | null,
     description?: string | null,
-    status?: string | null
+    status?: string | null,
+    email?: string | null,
+    id?: string | null
 };
 
 type Card2 = {
@@ -29,7 +31,9 @@ const initState: StateType = {
     currentCard: {
         title: null,
         description: null,
-        status: null
+        status: null,
+        email:null,
+        id:null
     },
     cards : null
 };

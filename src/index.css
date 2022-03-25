@@ -20,3 +20,7 @@ code {
 input[type="file"] {
   display: none;
 }
+
+*:focus {
+  outline: none;
+}

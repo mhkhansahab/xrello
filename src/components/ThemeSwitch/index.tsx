@@ -32,7 +32,6 @@ const Index: FC = () => {
         {...label}
         defaultChecked
         onChange={() => {
-          console.log("asdasd");
           switchTheme();
         }}
       />

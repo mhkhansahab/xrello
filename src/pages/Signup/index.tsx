@@ -174,7 +174,7 @@ const Index: FC = () => {
         }}
       />
       <br />
-      {errorMsg != "" ? <ErrorMsg>{errorMsg}</ErrorMsg> : null}
+      {errorMsg != "" ? <ErrorMsg>{"*" + errorMsg}</ErrorMsg> : null}
       {/* <div style={{ width: "100%", height: "10px" }}></div>
       <CustomLabelFile htmlFor={"file"}>
         Select profile picture &nbsp;&nbsp;&nbsp;

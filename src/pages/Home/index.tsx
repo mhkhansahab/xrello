@@ -74,7 +74,6 @@ const Index: FC = () => {
       },
     })
       .then((res) => {
-        console.log(res.data.cards);
         setCards(res.data.cards);
       })
       .catch(async (error) => {
